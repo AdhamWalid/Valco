@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="/styles/profile.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">Valco</div>
+            <nav>
+                <a href="/profile">Profile</a>
+                <a href="/home">Home</a>
+                <a href="/logout">Logout</a>
+            </nav>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="profile-container">
+            <h1>User Profile</h1>
+            <img src="<%= profilePicture %>?v=<%= new Date().getTime() %>" alt="Profile Picture" />
+            <div class="profile-info">
+                <p><strong>Name:</strong> <%= fullName %></p>
+                <p><strong>Email:</strong> <%= email %></p>
+            </div>
+            <a href="/edit-profile" class="button">Edit Profile</a>
+        </div>
+
+        <!-- Color Customization Section -->
+        <div class="customization-container">
+            <h2>Customize Chat Colors</h2>
+            <form id="colorForm">
+                <label for="backgroundColor">Background Color:</label>
+                <input type="color" id="backgroundColor" name="backgroundColor" value="#f4f4f4">
+
+                <label for="textColor">Text Color:</label>
+                <input type="color" id="textColor" name="textColor" value="#333333">
+
+                <label for="buttonColor">Button Color:</label>
+                <input type="color" id="buttonColor" name="buttonColor" value="#008cba">
+
+                <button type="submit">Save</button>
+            </form>
+        </div>
+    </div>
+    
+    <footer>
+        <p>&copy; 2024 Valco. All rights reserved.</p>
+    </footer>
+
+    <!-- Load JavaScript for settings -->
+    <script src="/js/settings.js"></script>
+</body>
+</html>

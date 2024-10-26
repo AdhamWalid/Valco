@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Room</title>
+    <link rel="stylesheet" href="/styles/chat.css"> <!-- Link to the external CSS file -->
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+    <!-- Navbar -->
+    <div class="navbar">
+        <h1>Valco</h1>
+        <ul>
+            <li><a href="/home">Home</a></li>
+            <li><a href="/profile">Profile</a></li>
+            <li><a href="/logout">Logout</a></li>
+            <li><button id="theme-toggle">Toggle Theme</button></li>
+        </ul>
+    </div>
+
+    <!-- Chat container -->
+    <div class="chat-container">
+        <div class="chat-header">
+            <h1>Chat Room</h1>
+            <h2>Welcome, <%= username %>!</h2>
+            <img src="<%= profilepic %>" alt="User Avatar" class="avatar">
+        </div>
+        
+        <div id="messages" class="messages-container"></div>
+        
+        <form id="form" action="">
+            <input id="input" autocomplete="off" placeholder="Type a message..." />
+            <button type="submit">Send</button>
+        </form>
+    </div>
+
+    <script>
+        const socket = io(); // Initialize Socket.io
+
+        const form = document.getElementById('form');
+        const input = document.getElementById('input');
+        const messagesDiv = document.getElementById('messages');
+        const themeToggle = document.getElementById('theme-toggle');
+
+        // Basic bot replies for predefined commands
+        const botReplies = {
+            '/help': 'Here are some commands you can try: /help, /tips',
+            '/tips': 'Remember to be respectful and have fun!',
+        };
+
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+            if (input.value) {
+                // Check for bot command
+                const userMessage = input.value.trim();
+                if (botReplies[userMessage]) {
+                    // Display bot reply immediately if it matches a command
+                    displayMessage('Bot', botReplies[userMessage]);
+                } else {
+                    // Emit user message to the server if it's not a command
+                    const msgData = {
+                        senderId: '<%= senderId %>', // Replace with the actual sender ID if needed
+                        message: userMessage,
+                        room: 'default', // Default room; change if implementing multiple rooms
+                        name: '<%= username %>'
+                    };
+                    socket.emit('chat message', msgData); // Emit message to server
+                }
+                input.value = ''; // Clear the input field
+            }
+        });
+
+        // Listen for incoming messages
+        socket.on('chat message', (msg) => {
+            displayMessage(msg.senderId, msg.message);
+        });
+
+        // Function to display a message
+        function displayMessage(sender, message) {
+            const item = document.createElement('div');
+            item.classList.add('message-item');
+            item.innerHTML = `<span class="sender-name">${sender}:</span> ${message}`;
+            messagesDiv.appendChild(item);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight; // Scroll to the bottom
+        }
+
+        // Theme Toggle
+        document.body.className = localStorage.getItem('theme') || 'light-theme';
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = document.body.className;
+            const newTheme = currentTheme === 'light-theme' ? 'dark-theme' : 'light-theme';
+            document.body.className = newTheme;
+            localStorage.setItem('theme', newTheme);
+        });
+    </script>
+</body>
+</html>

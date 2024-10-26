@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Velco - Login & Sign Up</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="./styles/main.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">Valco</div>
+            <nav>
+                    
+                <% if (status) { %>
+                    <a href="/profile">Profile</a> <!-- Show Profile link if logged in -->
+                    <a href="/chat">Chat Box</a>
+                    <a href="/home">Logout</a>
+
+                <% }  %>
+                <% if (!status) { %> 
+                <a href="/home">Login</a>
+                <% } %>
+
+                <button id="themeToggle">Dark Mode</button>
+            </nav>
+        </div>
+    </header>
+
+    <header>
+
+    </header>
+
+    
+    <main>
+        <div id="alertContainer">
+
+        </div>
+        <div class="form-container">
+            <!-- Login Form -->
+            <div class="form-box">
+                <h2>Login</h2>
+                <form id="loginForm">
+                    <div class="input-group">
+                        <input type="email" id="loginEmail" placeholder="Email" required>
+                    </div>
+                    <div class="input-group">    
+                        
+                        <input type="password" id="loginPassword" placeholder="Password" required>
+
+                    </div>
+                    <button type="submit" class="btn">Login</button>
+                </form>
+            </div>
+
+            <!-- Sign Up Form -->
+            <div class="form-box">
+                <h2>Sign Up</h2>
+                <form id="signupForm">
+                    <div class="input-group">
+                        <input type="text" id="signupName" placeholder="Full Name" required>
+                    </div>
+                    <div class="input-group">
+                        <input type="email" id="signupEmail" placeholder="Email" required>
+                    </div>
+                    <div class="input-group">
+                        <input type="password" id="signupPassword" placeholder="Password" required>
+                    </div>
+                    <button type="submit" class="btn">Sign Up</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Velco. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Handle Login
+        document.getElementById('loginForm').addEventListener('submit', async function (event) {
+            event.preventDefault(); // Prevent form from reloading the page
+
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            // Send login request to the backend
+            const response = await fetch('/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password })
+            });
+
+            const result = await response.json();
+            if (response.ok) {
+                alert(result.message); // Show success message
+            } else {
+                alert(result.error); // Show error message
+            }
+        });
+
+        // Handle Sign-Up
+        document.getElementById('signupForm').addEventListener('submit', async function (event) {
+            event.preventDefault(); // Prevent form from reloading the page
+
+            const full_name = document.getElementById('signupName').value;
+            const email = document.getElementById('signupEmail').value;
+            const password = document.getElementById('signupPassword').value;
+
+            // Send sign-up request to the backend
+            const response = await fetch('/signup', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ full_name, email, password })
+            });
+
+            const result = await response.json();
+            if (response.ok) {
+                alert(result.message); // Show success message
+            } else {
+                alert(result.error); // Show error message
+            }
+        });
+
+
+   
+    // Check for saved user preference, if any, on initial load
+    const currentTheme = localStorage.getItem('theme') || 'light';
+    if (currentTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+        document.querySelectorAll('header, nav a').forEach(el => el.classList.add('dark-mode'));
+    }
+
+    // Theme toggle button functionality
+    document.getElementById('themeToggle').addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+
+        const navLinks = document.querySelectorAll('nav a');
+        navLinks.forEach(el => el.classList.toggle('dark-mode'));
+
+        // Save the current theme to local storage
+        if (document.body.classList.contains('dark-mode')) {
+            localStorage.setItem('theme', 'dark');
+        } else {
+            localStorage.setItem('theme', 'light');
+        }
+    });
+
+
+    function showAlert(message, type = 'success') {
+        const alertContainer = document.getElementById('alertContainer');
+        const alert = document.createElement('div');
+
+        // Set alert class based on type
+        alert.className = `alert ${type}`;
+        alert.textContent = message;
+
+        // Append to alert container
+        alertContainer.appendChild(alert);
+
+        // Automatically hide after 3 seconds
+        setTimeout(() => {
+            alert.classList.add('hide');
+
+            // Remove the alert after the fade-out animation
+            alert.addEventListener('transitionend', () => {
+                alertContainer.removeChild(alert);
+            });
+        }, 3000);
+    }
+
+    // Automatically show an alert when the page is loaded
+    document.addEventListener('DOMContentLoaded', () => {
+        showAlert('Welcome to Valco.', 'success');
+    });
+    </script>
+</body>
+</html>

@@ -1,0 +1,142 @@
+/* Reset default margin and padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f2f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #333;
+}
+
+/* Navbar styling */
+.navbar {
+    width: 100%;
+    background-color: #333;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar h1 {
+    font-size: 1.5rem;
+    color: #fff;
+}
+
+.navbar ul {
+    list-style-type: none;
+    display: flex;
+}
+
+.navbar ul li {
+    margin-left: 20px;
+}
+
+.navbar ul li a {
+    text-decoration: none;
+    color: #fff;
+    transition: color 0.3s ease;
+}
+
+.navbar ul li a:hover {
+    color: #4a76a8;
+}
+
+/* Chat container styling */
+.chat-container {
+    width: 100%;
+    max-width: 600px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    margin-top: 80px; /* Adjust to push the chat down below navbar */
+}
+
+/* Header styling */
+.chat-header {
+    background-color: #4a76a8;
+    padding: 15px;
+    color: #fff;
+    text-align: center;
+}
+
+/* Messages area */
+#messages {
+    padding: 15px;
+    height: 400px;
+    overflow-y: scroll;
+    background-color: #fafafa;
+}
+
+/* Individual message styling */
+.message-item {
+    margin-bottom: 10px;
+    padding: 8px;
+    border-radius: 6px;
+    background-color: #e0e7ff;
+    position: relative;
+}
+
+/* Sender name styling */
+.sender-name {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+/* Message input area */
+#form {
+    display: flex;
+    border-top: 1px solid #ddd;
+    background-color: #f9f9f9;
+}
+
+#input {
+    flex: 1;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    outline: none;
+}
+
+button {
+    background-color: #4a76a8;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #3b5d87;
+}
+
+.light-theme {
+    background-color: #f4f4f4;
+    color: #000;
+}
+
+.dark-theme {
+    background-color: #333;
+    color: #333;
+}
+
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    
+}
