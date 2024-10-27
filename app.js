@@ -82,6 +82,9 @@ app.get('/home', (req, res) => res.render('index',  {
     status : req.session.userId
 }));
 
+app.get('/test', (req, res) => res.render('home',  {
+    status : req.session.userId
+}));
 // User Signup
 app.post('/signup', async (req, res) => {
     const { full_name, email, password } = req.body;
