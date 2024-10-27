@@ -115,6 +115,18 @@ app.post('/login', async (req, res) => {
     }
 });
 
+// Lopgout
+app.get('/logout', (req, res) => {
+    req.session.destroy(err => {
+        if (err) {
+            console.error('Error during logout:', err);
+            return res.status(500).json({ error: 'Could not log out' });
+        }
+        res.redirect('/home');
+    });
+});
+ 
+
 // Chat Room
 app.get('/chat', async (req, res) => {
     if (!req.session.userId) return res.redirect('/home');
