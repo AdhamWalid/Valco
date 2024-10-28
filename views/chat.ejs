@@ -10,15 +10,20 @@
 
 <body>
     <!-- Navbar -->
-    <div class="navbar">
-        <h1>Valco</h1>
-        <ul>
-            <li><a href="/home">Home</a></li>
-            <li><a href="/profile">Profile</a></li>
-            <li><a href="/logout">Logout</a></li>
-            <li><button id="theme-toggle">Toggle Theme</button></li>
-        </ul>
+    <header>
+    <div class="container">
+        <h1 class="logo">Valco</h1>
+        <nav>
+                    
+                <a href="/profile">Profile</a> <!-- Show Profile link if logged in -->
+                <a href="/chat">Chat Box</a>
+                <a href="/logout">Logout</a>
+
+
+            <button id="themeToggle" title="Toggle Dark Mode">🌙</button>
+        </nav>
     </div>
+    </header>
 
     <!-- Chat container -->
     <div class="chat-container">
@@ -29,7 +34,6 @@
         </div>
         
         <div id="messages" class="messages-container"></div>
-        
         <form id="form" action="">
             <input id="input" autocomplete="off" placeholder="Type a message..." />
             <button type="submit">Send</button>
@@ -58,7 +62,20 @@
                 if (botReplies[userMessage]) {
                     // Display bot reply immediately if it matches a command
                     displayMessage('Bot', botReplies[userMessage]);
+                } else  if (userMessage.startsWith('/chat-gpt')) {
+                    displayMessage('AI', "OK");
+//671bdd3743cb0affe580f3c0
+                    const msgData = {
+                        senderId: '671bdd3743cb0affe580f3c0', // Replace with the actual sender ID if needed
+                        message: userMessage,
+                        room: 'default', // Default room; change if implementing multiple rooms
+                        name: 'BOT'
+                    };
+                    console.log(msgData)
+                    socket.emit('bot message', msgData); // Emit message to server
+
                 } else {
+
                     // Emit user message to the server if it's not a command
                     const msgData = {
                         senderId: '<%= senderId %>', // Replace with the actual sender ID if needed
@@ -74,14 +91,19 @@
 
         // Listen for incoming messages
         socket.on('chat message', (msg) => {
-            displayMessage(msg.senderId, msg.message);
+            console.log(msg)
+            displayMessage(msg.senderId, msg.message , msg.name);
+        });
+
+        socket.on('bot message', (msg) => {
+            displayMessage(msg.senderId, msg.message , msg.name);
         });
 
         // Function to display a message
-        function displayMessage(sender, message) {
+        function displayMessage(sender, message , name) {
             const item = document.createElement('div');
             item.classList.add('message-item');
-            item.innerHTML = `<span class="sender-name">${sender}:</span> ${message}`;
+            item.innerHTML = `<span class="sender-name">${name}:</span> ${message}`;
             messagesDiv.appendChild(item);
             messagesDiv.scrollTop = messagesDiv.scrollHeight; // Scroll to the bottom
         }

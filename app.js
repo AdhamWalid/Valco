@@ -132,7 +132,7 @@ app.get('/logout', (req, res) => {
 // Chat Room
 app.get('/chat', async (req, res) => {
     if (!req.session.userId) return res.redirect('/home');
-    console.log(req.session)
+
     res.render('chat', { username: `${req.session.fullName}`,
                          isAdmin: req.session.isAdmin , 
                          senderId:req.session.userId ,
@@ -172,7 +172,6 @@ app.get('/profile', async (req, res) => {
 app.get('/edit-profile', async (req, res) => {
     if (!req.session.userId) return res.redirect('/home');
     const user = await User.findById(req.session.userId);
-    console.log(user)
     res.render('edit-profile', 
         {
             admin: user.admin,
@@ -201,8 +200,7 @@ app.post('/send-message', async (req, res) => {
     const { message, room = "default" } = req.body;
     const senderId = req.session.userId;
     const sentimentScore = sentiment.analyze(message).score;
-    console.log("Received message:", message);
-    console.log("Sender ID:", senderId);
+
 
     if (!message) {
         return res.status(400).json({ error: 'Message content is required' });
@@ -249,9 +247,7 @@ io.on('connection', (socket) => {
         '/tips': 'Remember to be respectful and have fun!',
     };
 
-    console.log('User connected');
     socket.on('chat message', async (msgData) => {
-        console.log(msgData)
         if (chatbotResponses[msgData.message]) {
             socket.emit('chat message', { message: chatbotResponses[msgData.message], senderId: 'Chatbot' });
         }else {

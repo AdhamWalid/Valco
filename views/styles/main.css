@@ -191,7 +191,7 @@ nav a:hover {
 
 /* Dark Mode Settings */
 body.dark-mode {
-    background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460, #53354a);
+    background: linear-gradient(135deg, #11101d, #16213e, #431642, #211b32);
     background-size: 400% 400%; /* Ensures a smooth, large gradient */
     color: #ffffff;
     animation: gradientBackground 15s ease infinite; /* Optional subtle animation */
@@ -212,6 +212,7 @@ body.dark-mode {
 body.dark-mode header {
     background: linear-gradient(135deg, #11101d, #1f1b2c);
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
+    
 }
 
 body.dark-mode nav a {
@@ -257,8 +258,8 @@ body.dark-mode .form-box:hover {
 }
 
 .dark-mode footer {
-    background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460, #53354a);
-    
+    background: linear-gradient(135deg, #11101d, #16213e, #431642, #211b32);
+    animation: gradientBackground 15s ease infinite; /* Optional subtle animation */
     padding: 15px 0;
     text-align: center;
     color: #fff;

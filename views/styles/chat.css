@@ -16,22 +16,82 @@ body {
 }
 
 /* Navbar styling */
-.navbar {
+/* Navbar styling */
+header {
     width: 100%;
-    background-color: #333;
+    background-color: #4a76a8;
     color: #fff;
+    padding: 10px 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 20px;
-    position: fixed;
-    top: 0;
-    z-index: 1000;
 }
 
-.navbar h1 {
+nav {
+    display: flex;
+    gap: 20px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    transition: background 0.3s;
+}
+
+nav a:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.dark-theme .navbar {
+    background-color: #11101d;
+}
+
+.dark-theme header {
+    background: linear-gradient(135deg, #11101d, #1f1b2c);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
+    
+}
+
+body.dark-theme nav a {
+    color: #e0e0e0; /* Light text color for contrast */
+    transition: color 0.3s ease;
+}
+
+body.dark-theme nav a:hover {
+    color: #ffffff; /* Brighten on hover */
+    background: rgba(255, 255, 255, 0.1); /* Slight background highlight */
+}
+
+body.dark-theme #themeToggle {
+    color: #e0e0e0; /* Match theme toggle button with dark mode */
+}
+
+/* .navbar h1 {
     font-size: 1.5rem;
     color: #fff;
+} */
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: 5px;
+}
+
+.logo::selection{
+    color: #431642;
 }
 
 .navbar ul {
@@ -61,7 +121,7 @@ body {
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     overflow: hidden;
-    margin-top: 80px; /* Adjust to push the chat down below navbar */
+    margin-top: 80px; /* Adjust this to match the header height */
 }
 
 /* Header styling */
@@ -71,7 +131,11 @@ body {
     color: #fff;
     text-align: center;
 }
+.dark-theme .chat-header {
+    background: linear-gradient(135deg, #11101d, #16213e, #431642, #211b32);
+    padding: 15px;
 
+}
 /* Messages area */
 #messages {
     padding: 15px;
@@ -80,7 +144,14 @@ body {
     background-color: #fafafa;
 }
 
+.dark-theme #messages {
+    background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+}
 /* Individual message styling */
+
+.dark-theme  .chat-container{
+    background: linear-gradient(135deg, #11101d, #16213e, #431642, #211b32);
+}
 .message-item {
     margin-bottom: 10px;
     padding: 8px;
@@ -111,7 +182,7 @@ body {
 }
 
 button {
-    background-color: #4a76a8;
+    background-color: #11101d;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -119,9 +190,11 @@ button {
     transition: background-color 0.3s ease;
 }
 
-button:hover {
-    background-color: #3b5d87;
+body.dark-theme .btn {
+    background-color: #4a90e2;
+    color: #fff;
 }
+
 
 .light-theme {
     background-color: #f4f4f4;
@@ -129,7 +202,7 @@ button:hover {
 }
 
 .dark-theme {
-    background-color: #333;
+    background: linear-gradient(135deg, #11101d, #16213e, #431642, #211b32);
     color: #333;
 }
 
@@ -140,3 +213,5 @@ button:hover {
     border-radius: 50%;
     
 }
+
+/* STARS*/
