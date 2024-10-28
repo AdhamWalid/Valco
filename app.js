@@ -159,7 +159,8 @@ app.get('/profile', async (req, res) => {
         res.render('profile', {
             fullName: user.full_name,
             email: user.email,
-            profilePicture: user.profileurl || '/uploads/default-profile.png'
+            profilePicture: user.profileurl || '/uploads/default-profile.png',
+            admin : user.admin
         });
     } catch (error) {
         res.status(500).json({ error: 'Server error' });

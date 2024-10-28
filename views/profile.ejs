@@ -25,26 +25,13 @@
             <div class="profile-info">
                 <p><strong>Name:</strong> <%= fullName %></p>
                 <p><strong>Email:</strong> <%= email %></p>
+                <% if (admin) { %>
+                <p><strong>Admin:</strong> <%= admin %></p>
+                <% } %>
             </div>
             <a href="/edit-profile" class="button">Edit Profile</a>
         </div>
 
-        <!-- Color Customization Section
-        <div class="customization-container">
-            <h2>Customize Chat Colors</h2>
-            <form id="colorForm">
-                <label for="backgroundColor">Background Color:</label>
-                <input type="color" id="backgroundColor" name="backgroundColor" value="#f4f4f4">
-
-                <label for="textColor">Text Color:</label>
-                <input type="color" id="textColor" name="textColor" value="#333333">
-
-                <label for="buttonColor">Button Color:</label>
-                <input type="color" id="buttonColor" name="buttonColor" value="#008cba">
-
-                <button type="submit">Save</button>
-            </form>
-        </div> -->
     </div>
     
     <footer>
