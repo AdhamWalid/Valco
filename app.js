@@ -82,9 +82,9 @@ app.get('/home', (req, res) => res.render('index',  {
     status : req.session.userId
 }));
 
-app.get('/test', (req, res) => res.render('home',  {
-    status : req.session.userId
-}));
+// app.get('/test', (req, res) => res.render('loghome',  {
+//     status : req.session.userId
+// }));
 // User Signup
 app.post('/signup', async (req, res) => {
     const { full_name, email, password } = req.body;
@@ -110,7 +110,6 @@ app.post('/login', async (req, res) => {
         req.session.fullName = user.full_name;
         req.session.isAdmin = user.admin;
         req.session.profileurl = user.profileurl;
-
 
         res.status(200).json({ message: 'Login successful' });
     } catch (error) {
@@ -227,15 +226,15 @@ app.post('/send-message', async (req, res) => {
 
 
 // Delete Message (Admin only)
-app.delete('/delete-message/:id', isAdmin, async (req, res) => {
-    try {
-        await Message.findByIdAndDelete(req.params.id);
-        io.emit('delete message', req.params.id); // Notify clients about the deletion
-        res.status(200).json({ message: 'Message deleted' });
-    } catch (error) {
-        res.status(500).json({ error: 'Server error' });
-    }
-});
+// app.delete('/delete-message/:id', isAdmin, async (req, res) => {
+//     try {
+//         await Message.findByIdAndDelete(req.params.id);
+//         io.emit('delete message', req.params.id); // Notify clients about the deletion
+//         res.status(200).json({ message: 'Message deleted' });
+//     } catch (error) {
+//         res.status(500).json({ error: 'Server error' });
+//     }
+// });
 
 
 

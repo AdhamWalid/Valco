@@ -1,10 +1,21 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body */
 body {
     font-family: 'Poppins', sans-serif;
-    margin: 0;
     background-color: #f0f4ff;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
     color: #333;
 }
 
+/* Header */
 header {
     background: #007BFF; /* Blue background */
     color: white;
@@ -33,6 +44,7 @@ nav a {
     font-weight: bold;
 }
 
+/* Profile Container */
 .profile-container {
     background: white;
     padding: 20px;
@@ -40,6 +52,11 @@ nav a {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
     margin-top: 20px;
+}
+
+.dark-mode .profile-container {
+    background: rgb(25, 45, 94);
+
 }
 
 .profile-info {
@@ -56,13 +73,10 @@ img {
 }
 
 img:hover {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
     border: 2px solid #ff1d1d;
-    margin-bottom: 20px;
 }
 
+/* Button Styles */
 .button {
     background: #007BFF; /* Button color */
     color: white;
@@ -79,74 +93,103 @@ img:hover {
     background: #0056b3; /* Darker blue on hover */
 }
 
+/* Footer */
+
+/* Footer */
 footer {
     text-align: center;
     padding: 10px 0;
     background: #007BFF;
     color: white;
-    position: relative;
-    bottom: 0;
     width: 100%;
-    margin-top: 10px;
+    margin-top: auto; /* Pushes the footer to the bottom */
 }
 
-.form-container {
-    max-width: 500px;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    background-color: #f9f9f9;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-h1 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #333;
-}
-
+/* Input Fields Styles */
 .form-group {
     margin-bottom: 15px;
 }
 
-label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 5px;
-}
-
-input[type="text"],
-input[type="email"],
-input[type="password"],
-input[type="file"] {
+.form-group input {
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
-}
-
-input[type="file"] {
-    padding: 5px; /* Less padding for file inputs */
-}
-
-.button {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
     font-size: 16px;
+    transition: border-color 0.3s, box-shadow 0.3s; /* Smooth transition */
 }
 
-.button:hover {
-    background-color: #45a049;
+/* Input styling for dark mode */
+body.dark-mode .form-group input {
+    background-color: #444; /* Darker background */
+    color: #fff; /* White text */
+    border: 1px solid #555; /* Darker border */
 }
 
-.file-upload {
-    display: none; /* Hide default file input */
+/* Focus effect */
+.form-group input:focus {
+    border-color: #007BFF; /* Blue border on focus */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Light blue glow */
+    outline: none; /* Remove default outline */
+}
+
+/* Placeholder styling */
+.form-group input::placeholder {
+    color: #aaa; /* Lighter color for placeholder text */
+}
+
+/* Placeholder styling for dark mode */
+body.dark-mode .form-group input::placeholder {
+    color: #666; /* Darker placeholder text */
+}
+
+/* Dark Mode Settings */
+body.dark-mode {
+    background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460, #53354a);
+    background-size: 400% 400%; /* Ensures a smooth, large gradient */
+    color: #ffffff;
+    animation: gradientBackground 15s ease infinite; /* Optional subtle animation */
+}
+
+/* Gradient Animation */
+@keyframes gradientBackground {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Dark Mode Navbar Styles */
+body.dark-mode header {
+    background: linear-gradient(135deg, #11101d, #1f1b2c);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
+}
+
+body.dark-mode nav a {
+    color: #e0e0e0; /* Light text color for contrast */
+}
+
+body.dark-mode nav a:hover {
+    color: #ffffff; /* Brighten on hover */
+    background: rgba(255, 255, 255, 0.1); /* Slight background highlight */
+}
+
+/* Dark Mode Footer Styles */
+body.dark-mode footer {
+    background: linear-gradient(135deg, #1a1a2e, #16213e);
+    color: #cccccc; /* Light gray text color for readability */
+    padding: 15px 0;
+    text-align: center;
+}
+
+body.dark-mode footer p {
+    color: #e0e0e0; /* Lighten text color within the footer */
+}
+
+#themeToggle {
+    cursor: pointer;
+    background: none;
+    border: none;
+    color: inherit;
+    font-size: 16px;
 }
 

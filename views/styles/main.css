@@ -95,6 +95,7 @@ main {
 
 .btn:hover {
     background-color: #357abd;
+    color: #fff;
 }
 
 /* Footer */
@@ -107,84 +108,73 @@ footer {
 }
 
 
-       /* Nav Bar Styles */
-       header {
-        background: #4a90e2; /* Green background */
-        color: white; /* White text */
-        padding: 10px 0;
-    }
 
-    .container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 20px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
+/* Nav Bar Styles */
+header {
+    background: #4a90e2;
+    color: white;
+    padding: 10px 0;
+}
 
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav {
+    display: flex;
+    gap: 20px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    transition: background 0.3s;
+}
+
+nav a:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
     nav {
-        display: flex;
-        gap: 20px; /* Spacing between links */
+        flex-direction: column;
+        gap: 10px;
     }
 
     nav a {
-        color: white;
-        text-decoration: none;
-        padding: 8px 16px;
-        border-radius: 4px;
-        transition: background 0.3s;
+        padding: 10px;
+        text-align: center;
     }
-
-    nav a:hover {
-        background: rgba(255, 255, 255, 0.2); /* Lighten on hover */
-    }
-
-    /* Responsive Styles */
-    @media (max-width: 768px) {
-        nav {
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        nav a {
-            padding: 10px;
-            text-align: center; /* Center text on smaller screens */
-        }
-    }
-
-
-    body.dark-mode {
-    background-color: #333; /* Dark background */
-    color: #000000; /* Light text */
 }
 
-    /* header.dark-mode {
-    background: #444; /* Darker header background 
-} */
+/* Dark Mode */
 
-    nav a.dark-mode {
-    color: #f8f8f8; /* Light link color */
-}
 
-/* Dark mode button styles */
 #themeToggle {
     cursor: pointer;
     background: none;
     border: none;
-    color: inherit; /* Use current text color */
-    font-size: 16px; /* Adjust size as needed */
+    color: inherit;
+    font-size: 16px;
 }
 
 #alertContainer {
     position: fixed;
     top: 20px;
     right: 20px;
-    z-index: 1000; /* Ensure it is above other elements */
+    z-index: 1000;
 }
 
 .alert {
-    background-color: #000000; /* Default green background */
+    background-color: #000000;
     color: white;
     padding: 12px;
     margin: 10px 0;
@@ -195,6 +185,102 @@ footer {
 }
 
 .alert.hide {
-    opacity: 0; /* Fade out */
-    transform: translateY(-20px); /* Move up */
+    opacity: 0;
+    transform: translateY(-20px);
+}
+
+/* Dark Mode Settings */
+body.dark-mode {
+    background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460, #53354a);
+    background-size: 400% 400%; /* Ensures a smooth, large gradient */
+    color: #ffffff;
+    animation: gradientBackground 15s ease infinite; /* Optional subtle animation */
+}
+
+/* Gradient Animation */
+@keyframes gradientBackground {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+
+
+/* Dark Mode Glow Effect */
+
+/* Navbar Styles in Dark Mode */
+body.dark-mode header {
+    background: linear-gradient(135deg, #11101d, #1f1b2c);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
+}
+
+body.dark-mode nav a {
+    color: #e0e0e0; /* Light text color for contrast */
+    transition: color 0.3s ease;
+}
+
+body.dark-mode nav a:hover {
+    color: #ffffff; /* Brighten on hover */
+    background: rgba(255, 255, 255, 0.1); /* Slight background highlight */
+}
+
+body.dark-mode #themeToggle {
+    color: #e0e0e0; /* Match theme toggle button with dark mode */
+}
+
+
+body.dark-mode h2 {
+    color: #ccc
+}
+body.dark-mode .form-box {
+    background-color: #222;
+    border: 1px solid #444;
+    box-shadow: 0 0 15px rgba(100, 149, 237, 0.6), 0 0 25px rgba(100, 149, 237, 0.4);
+}
+
+/* Adjust input fields in dark mode */
+body.dark-mode .input-group input {
+    background-color: #333;
+    color: #fff;
+    border: 1px solid #555;
+}
+
+/* Adjust button in dark mode */
+body.dark-mode .btn {
+    background-color: #4a90e2;
+    color: #fff;
+}
+
+/* Optional: Extra glow on hover */
+body.dark-mode .form-box:hover {
+    box-shadow: 0 0 20px rgba(100, 149, 237, 0.8), 0 0 35px rgba(100, 149, 237, 0.6);
+}
+
+.dark-mode footer {
+    background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460, #53354a);
+    
+    padding: 15px 0;
+    text-align: center;
+    color: #fff;
+    font-size: 0.9em;
+}
+
+.welcome {
+    position: relative; /* Use relative positioning */
+    margin: 20px auto; /* Center the div */
+    padding: 40px; /* Ample padding for aesthetics */
+    font-size: 3em; /* Make the text big */
+    background-color: rgba(0, 128, 0, 0.8); /* Semi-transparent green background */
+    color: white; /* White text color */
+    border-radius: 10px; /* Rounded corners */
+    text-align: center; /* Center text */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Shadow for depth */
+    width: 80%; /* Set width for the div */
+    max-width: 900px; /* Limit the maximum width */
+    z-index: 1; /* Ensure it stays above other content */
+    /* Optional styles for responsiveness */
+    @media (max-width: 600px) {
+        font-size: 2em; /* Smaller font on small screens */
+        padding: 20px; /* Less padding on small screens */
+    }
 }
