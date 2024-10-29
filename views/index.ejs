@@ -85,7 +85,6 @@
 
             const email = document.getElementById('loginEmail').value;
             const password = document.getElementById('loginPassword').value;
-
             // Send login request to the backend
             const response = await fetch('/login', {
                 method: 'POST',
@@ -138,7 +137,8 @@
 
    
     // Check for saved user preference, if any, on initial load
-    const currentTheme = localStorage.getItem('theme') || 'light';
+    const currentTheme = localStorage.getItem('theme') || 'dark';
+    console.log(currentTheme)
     if (currentTheme === 'dark') {
         document.body.classList.add('dark-mode');
         document.querySelectorAll('header, nav a').forEach(el => el.classList.add('dark-mode'));
@@ -159,33 +159,6 @@
         }
     });
 
-
-    function showAlert(message, type = 'success') {
-        const alertContainer = document.getElementById('alertContainer');
-        const alert = document.createElement('div');
-
-        // Set alert class based on type
-        alert.className = `alert ${type}`;
-        alert.textContent = message;
-
-        // Append to alert container
-        alertContainer.appendChild(alert);
-
-        // Automatically hide after 3 seconds
-        setTimeout(() => {
-            alert.classList.add('hide');
-
-            // Remove the alert after the fade-out animation
-            alert.addEventListener('transitionend', () => {
-                alertContainer.removeChild(alert);
-            });
-        }, 3000);
-    }
-
-    // Automatically show an alert when the page is loaded
-    document.addEventListener('DOMContentLoaded', () => {
-        showAlert('Welcome to Valco.', 'success');
-    });
 
 
 

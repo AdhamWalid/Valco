@@ -114,6 +114,7 @@ app.post('/login', async (req, res) => {
         
         // Send JSON response with a flag indicating success
         res.status(200).json({ message: 'Login successful', redirect: '/' });
+        
     } catch (error) {
         res.status(500).json({ error: 'Server error' });
     }
@@ -244,6 +245,7 @@ app.post('/send-message', async (req, res) => {
 
 
 // 404 Page
+
 app.use((req, res) => res.status(404).render('404'));
 
 // Socket.io Chat Integration
