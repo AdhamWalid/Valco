@@ -252,9 +252,14 @@ body.dark-mode .btn {
     color: #fff;
 }
 
+body.dark-mode .btn:hover {
+    background-color: #85235e;
+    color: #fff;
+}
 /* Optional: Extra glow on hover */
 body.dark-mode .form-box:hover {
-    box-shadow: 0 0 20px rgba(100, 149, 237, 0.8), 0 0 35px rgba(100, 149, 237, 0.6);
+    box-shadow: 0 0 20px #85235e, 0 0 35px rgba(194, 201, 213, 0.6);
+    animation: gradientBackground 15s ease infinite; /* Optional subtle animation */
 }
 
 .dark-mode footer {
