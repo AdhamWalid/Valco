@@ -34,6 +34,7 @@ const userSchema = new mongoose.Schema({
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     profileurl: { type: String, default: "uploads/default.JPG" },
+    badges : {type:Object , default: {admin:false , bug_hunter:false , active:false , owner:false}},
     admin: { type: Boolean, default: false }
 });
 const User = mongoose.model('User', userSchema);
@@ -109,13 +110,16 @@ app.post('/login', async (req, res) => {
         req.session.userId = user._id;
         req.session.fullName = user.full_name;
         req.session.isAdmin = user.admin;
-        req.session.profileurl = user.profileurl;
-
-        res.status(200).json({ message: 'Login successful' });
+        req.session.profilepic = user.profileurl;
+        
+        // Send JSON response with a flag indicating success
+        res.status(200).json({ message: 'Login successful', redirect: '/' });
     } catch (error) {
         res.status(500).json({ error: 'Server error' });
     }
 });
+
+
 
 // Lopgout
 app.get('/logout', (req, res) => {
@@ -136,7 +140,7 @@ app.get('/chat', async (req, res) => {
     res.render('chat', { username: `${req.session.fullName}`,
                          isAdmin: req.session.isAdmin , 
                          senderId:req.session.userId ,
-                        profilepic: req.session.profileurl
+                         profilePicture: req.session.profileurl
                     });
 });
 
@@ -153,13 +157,14 @@ app.get('/profile', async (req, res) => {
         if (!user) {
             return res.status(404).json({ error: 'User not found' });
         }
-
+        console.log(user)
         // Fallback to a default profile picture if profileurl is not set
         res.render('profile', {
             fullName: user.full_name,
             email: user.email,
             profilePicture: user.profileurl || '/uploads/default-profile.png',
-            admin : user.admin
+            admin : user.admin,
+            badges : user.badges.join(" ")
         });
     } catch (error) {
         res.status(500).json({ error: 'Server error' });

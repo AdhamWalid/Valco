@@ -27,10 +27,6 @@
                     <a href="/profile">Profile</a> <!-- Show Profile link if logged in -->
                     <a href="/chat">Chat Box</a>
                     <a href="/logout">Logout</a>
-
-                <% }  %>
-                <% if (!status) { %> 
-                <a href="/home">Login</a>
                 <% } %>
 
                 <button id="themeToggle" title="Toggle Dark Mode">🌙</button>
@@ -41,45 +37,41 @@
 
     
     <main>
- 
-        <div class="form-container">
-            <!-- Login Form -->
-            <div class="form-box">
-                <h2>Login</h2>
-                <form id="loginForm">
-                    <div class="input-group">
-                        <input type="email" id="loginEmail" placeholder="Email" required>
-                    </div>
-                    <div class="input-group">    
-                        
-                        <input type="password" id="loginPassword" placeholder="Password" required>
-
-                    </div>
-                    <button type="submit" class="btn">Login</button>
-                </form>
+            <!-- Form Section -->
+            <div class="form-container">
+                <!-- Login Form -->
+                <div class="form-box">
+                    <h2>Login</h2>
+                    <form id="loginForm">
+                        <div class="input-group">
+                            <input type="email" id="loginEmail" placeholder="Email" required>
+                        </div>
+                        <div class="input-group">    
+                            <input type="password" id="loginPassword" placeholder="Password" required>
+                        </div>
+                        <button type="submit" class="btn">Login</button>
+                    </form>
+                </div>
+    
+                <!-- Sign Up Form -->
+                <div class="form-box">
+                    <h2>Sign Up</h2>
+                    <form id="signupForm">
+                        <div class="input-group">
+                            <input type="text" id="signupName" placeholder="Full Name" required>
+                        </div>
+                        <div class="input-group">
+                            <input type="email" id="signupEmail" placeholder="Email" required>
+                        </div>
+                        <div class="input-group">
+                            <input type="password" id="signupPassword" placeholder="Password" required>
+                        </div>
+                        <button type="submit" class="btn">Sign Up</button>
+                    </form>
+                </div>
             </div>
-
-            <!-- Sign Up Form -->
-            <div class="form-box">
-                <h2>Sign Up</h2>
-                <form id="signupForm">
-                    <div class="input-group">
-                        <input type="text" id="signupName" placeholder="Full Name" required>
-                    </div>
-                    <div class="input-group">
-                        <input type="email" id="signupEmail" placeholder="Email" required>
-                    </div>
-                    <div class="input-group">
-                        <input type="password" id="signupPassword" placeholder="Password" required>
-                    </div>
-                    <button type="submit" class="btn">Sign Up</button>
-                </form>
-            </div>
-        </div>
-        <br>
-        <br>
     </main>
-    <p style="text-align: center;">You may need to refresh after logging in.</p>
+
     <footer>
         <div class="container">
             <p>&copy; 2024 Valco. All rights reserved.</p>
@@ -99,7 +91,18 @@
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, password })
-            });
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.redirect) {
+                    window.location.href = data.redirect;  // Redirect on success
+                } else {
+                    console.error('Login failed:', data.error);  // Handle errors
+                }
+            })
+            .catch(error => console.error('Error:', error));
+
+
 
             const result = await response.json();
             if (response.ok) {
@@ -183,6 +186,9 @@
     document.addEventListener('DOMContentLoaded', () => {
         showAlert('Welcome to Valco.', 'success');
     });
+
+
+
     </script>
 </body>
 </html>

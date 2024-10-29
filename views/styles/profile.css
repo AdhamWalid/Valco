@@ -47,11 +47,12 @@ nav a {
 /* Profile Container */
 .profile-container {
     background: white;
-    padding: 20px;
+    padding: 70px;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
-    margin-top: 20px;
+    margin-top: 50px;
+    width: 800px;
 }
 
 .dark-mode .profile-container {
@@ -145,7 +146,7 @@ body.dark-mode .form-group input::placeholder {
 
 /* Dark Mode Settings */
 body.dark-mode {
-    background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460, #53354a);
+    background-color: #11101d;
     background-size: 400% 400%; /* Ensures a smooth, large gradient */
     color: #ffffff;
     animation: gradientBackground 15s ease infinite; /* Optional subtle animation */
@@ -192,4 +193,5 @@ body.dark-mode footer p {
     color: inherit;
     font-size: 16px;
 }
+
 

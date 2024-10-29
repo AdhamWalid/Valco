@@ -24,10 +24,17 @@
     <div class="container">
         <div class="profile-container">
             <h1>User Profile</h1>
+            <br>
+            <br>
             <img src="<%= profilePicture %>?v=<%= new Date().getTime() %>" alt="Profile Picture" />
             <div class="profile-info">
-                <p><strong>Name:</strong> <%= fullName %></p>
-                <p><strong>Email:</strong> <%= email %></p>
+                <p><strong>Username:</strong> <%= fullName %></p>
+                <br>
+                <p><strong>Email Address:</strong> <%= email %></p>
+                <br>
+                <% console.log(badges) %>
+                <p><strong>Badges:</strong> <%= badges %></p>
+                <br>
                 <% if (admin) { %>
                 <p><strong>Admin:</strong> <%= admin %></p>
                 <% } %>
