@@ -28,9 +28,11 @@
     <!-- Chat container -->
     <div class="chat-container">
         <div class="chat-header">
-            <h1>Chat Room</h1>
-            <h2>Welcome, <%= username %>!</h2>
-            <img src="<%= profilepic %>" alt="User Avatar" class="avatar">
+            <h2>Chat Room</h2>
+            <h3>Welcome, <%= username %>!</h3>
+            <br>
+            <img src="<%= profilePicture %>" alt="User Avatar" class="avatar">
+            
         </div>
         
         <div id="messages" class="messages-container"></div>
@@ -46,7 +48,7 @@
         const form = document.getElementById('form');
         const input = document.getElementById('input');
         const messagesDiv = document.getElementById('messages');
-        const themeToggle = document.getElementById('theme-toggle');
+        const themeToggle = document.getElementById('themeToggle');
 
         // Basic bot replies for predefined commands
         const botReplies = {
@@ -54,27 +56,17 @@
             '/tips': 'Remember to be respectful and have fun!',
         };
 
-        form.addEventListener('submit', (event) => {
+        form.addEventListener('submit', async (event) => {
             event.preventDefault();
             if (input.value) {
+                let prefix = "/"
                 // Check for bot command
                 const userMessage = input.value.trim();
                 if (botReplies[userMessage]) {
                     // Display bot reply immediately if it matches a command
-                    displayMessage('Bot', botReplies[userMessage]);
-                } else  if (userMessage.startsWith('/chat-gpt')) {
-                    displayMessage('AI', "OK");
-//671bdd3743cb0affe580f3c0
-                    const msgData = {
-                        senderId: '671bdd3743cb0affe580f3c0', // Replace with the actual sender ID if needed
-                        message: userMessage,
-                        room: 'default', // Default room; change if implementing multiple rooms
-                        name: 'BOT'
-                    };
-                    console.log(msgData)
-                    socket.emit('bot message', msgData); // Emit message to server
-
-                } else {
+                    displayMessage('Bot', botReplies[userMessage] , "AI");
+                }
+                else {
 
                     // Emit user message to the server if it's not a command
                     const msgData = {
@@ -91,7 +83,6 @@
 
         // Listen for incoming messages
         socket.on('chat message', (msg) => {
-            console.log(msg)
             displayMessage(msg.senderId, msg.message , msg.name);
         });
 

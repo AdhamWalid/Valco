@@ -18,9 +18,8 @@ const Sentiment = require('sentiment');
 const sentiment = new Sentiment();
 
 
-const translate = require('@vitalets/google-translate-api');
-
-
+const { translate, Translator, speak, singleTranslate, batchTranslate, languages, isSupported, getCode } = require('google-translate-api-x');
+const tr = require('google-translate-api-x')
 
 
 // Connect to MongoDB
@@ -103,6 +102,8 @@ app.post('/signup', async (req, res) => {
 app.post('/login', async (req, res) => {
     const { email, password } = req.body;
     try {
+  
+
         const user = await User.findOne({ email });
         if (!user || !await bcrypt.compare(password, user.password)) {
             return res.status(400).json({ error: 'Invalid login' });
@@ -121,7 +122,6 @@ app.post('/login', async (req, res) => {
 });
 
 
-
 // Lopgout
 app.get('/logout', (req, res) => {
     req.session.destroy(err => {
@@ -137,12 +137,15 @@ app.get('/logout', (req, res) => {
 // Chat Room
 app.get('/chat', async (req, res) => {
     if (!req.session.userId) return res.redirect('/home');
+
+    // 
+    
     console.log(req.session)
     res.render('chat', { username: `${req.session.fullName}`,
                          isAdmin: req.session.isAdmin , 
                          senderId:req.session.userId ,
-                         profilePicture: req.session.profileurl
-                    });
+                         profilePicture: req.session.profilepic,
+            });
 });
 
 
@@ -158,7 +161,6 @@ app.get('/profile', async (req, res) => {
         if (!user) {
             return res.status(404).json({ error: 'User not found' });
         }
-        console.log(user)
         // Fallback to a default profile picture if profileurl is not set
         res.render('profile', {
             fullName: user.full_name,
@@ -178,7 +180,6 @@ app.get('/profile', async (req, res) => {
 app.get('/edit-profile', async (req, res) => {
     if (!req.session.userId) return res.redirect('/home');
     const user = await User.findById(req.session.userId);
-    console.log(user)
     res.render('edit-profile', 
         {
             admin: user.admin,
@@ -207,8 +208,7 @@ app.post('/send-message', async (req, res) => {
     const { message, room = "default" } = req.body;
     const senderId = req.session.userId;
     const sentimentScore = sentiment.analyze(message).score;
-    console.log("Received message:", message);
-    console.log("Sender ID:", senderId);
+
 
     if (!message) {
         return res.status(400).json({ error: 'Message content is required' });
@@ -256,9 +256,9 @@ io.on('connection', (socket) => {
         '/tips': 'Remember to be respectful and have fun!',
     };
 
-    console.log('User connected');
+
+    
     socket.on('chat message', async (msgData) => {
-        console.log(msgData)
         if (chatbotResponses[msgData.message]) {
             socket.emit('chat message', { message: chatbotResponses[msgData.message], senderId: 'Chatbot' });
         }else {

@@ -150,8 +150,13 @@ body.dark-theme #themeToggle {
 /* Individual message styling */
 
 .dark-theme  .chat-container{
-    background: linear-gradient(135deg, #11101d, #16213e, #431642, #211b32);
+    background: linear-gradient(135deg, #11101d, #163e1d, #431642, #211b32);
 }
+
+/* Gradient Animation */
+
+
+
 .message-item {
     margin-bottom: 10px;
     padding: 8px;
@@ -160,6 +165,11 @@ body.dark-theme #themeToggle {
     position: relative;
 }
 
+
+.message-item:hover{
+    border-radius: 10px;
+    background-color: #9cb1f5;
+}
 /* Sender name styling */
 .sender-name {
     font-weight: bold;
@@ -201,15 +211,23 @@ body.dark-theme .btn {
     color: #000;
 }
 
-.dark-theme {
+.dark-theme{
     background: linear-gradient(135deg, #11101d, #16213e, #431642, #211b32);
     color: #333;
+    animation: gradientBackground 15s ease infinite; /* Optional subtle animation */
+
+}
+
+@keyframes gradientBackground {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
 
 .avatar {
-    width: 40px;
-    height: 40px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
     
 }
