@@ -24,7 +24,7 @@ const translate = require('@vitalets/google-translate-api');
 
 
 // Connect to MongoDB
-mongoose.connect('mongodb+srv://Adham:dZ3QrKcfuMVd7nAB@cluster0.94gew.mongodb.net/velco_auth?tls=true')
+mongoose.connect(' ')
     .then(() => log(chalk`{green [Success]} Connected to MongoDB`))
     .catch(err => log(chalk`{red [Error]} ${err.message}`));
 
