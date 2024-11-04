@@ -18,12 +18,9 @@ const Sentiment = require('sentiment');
 const sentiment = new Sentiment();
 
 
-const { translate, Translator, speak, singleTranslate, batchTranslate, languages, isSupported, getCode } = require('google-translate-api-x');
-const tr = require('google-translate-api-x')
-
 
 // Connect to MongoDB
-mongoose.connect('mongodb+srv://Adham:dZ3QrKcfuMVd7nAB@cluster0.94gew.mongodb.net/velco_auth?tls=true')
+mongoose.connect('mongodb+srv://Adham:f6BFkacaENuEeoDY@hospital.94gew.mongodb.net/valo_auth')
     .then(() => log(chalk`{green [Success]} Connected to MongoDB`))
     .catch(err => log(chalk`{red [Error]} ${err.message}`));
 
@@ -36,6 +33,7 @@ const userSchema = new mongoose.Schema({
     badges : {type:Object , default: {admin:false , bug_hunter:false , active:false , owner:false}},
     admin: { type: Boolean, default: false }
 });
+
 const User = mongoose.model('User', userSchema);
 
 const messageSchema = new mongoose.Schema({
@@ -167,7 +165,6 @@ app.get('/profile', async (req, res) => {
             email: user.email,
             profilePicture: user.profileurl || '/uploads/default-profile.png',
             admin : user.admin,
-            badges : user.badges.join(" ")
         });
     } catch (error) {
         res.status(500).json({ error: 'Server error' });
