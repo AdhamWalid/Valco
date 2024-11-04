@@ -1,6 +1,6 @@
 # Valco 
 
-A fully-featured chat environment for students, where users can interact in real-time, personalize their profiles, and enjoy enhanced features for a more engaging experience. Built with **MongoDB**, **Express**, **EJS**, **Socket.IO**, and **Google Translate API**.
+A fully-featured chat environment for students, where users can interact in real-time, personalize their profiles, and enjoy enhanced features for a more engaging experience. Built with **MongoDB**, **Express**, **EJS** and **Socket.IO**
 
 ---
 
